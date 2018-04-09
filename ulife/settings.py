@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import pymysql
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -30,6 +29,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    # 'grappelli', # 美化库 必须在'django.contrib.admin'之前
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -37,24 +37,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'haystack',
-    'web',
     'blog',
     'comments',
+    'users',
+    'backstage',
 ]
 
-#ENGINE 指定了 django haystack 使用的搜索引擎
-#PATH 指定了索引文件需要存放的位置
+# ENGINE 指定了 django haystack 使用的搜索引擎
+# PATH 指定了索引文件需要存放的位置
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine',
         'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
     },
 }
-#指定如何对搜索结果分页，这里设置为每 10 项结果为一页
+# 指定如何对搜索结果分页，这里设置为每 10 项结果为一页
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
-#作用是每当有文章更新时就更新索引。由于博客文章更新不会太频繁，因此实时更新没有问题。
+# 作用是每当有文章更新时就更新索引。由于博客文章更新不会太频繁，因此实时更新没有问题。
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -64,6 +64,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # 'web_base.SimpleMiddleware.SimpleMiddleware'
 ]
 
 ROOT_URLCONF = 'ulife.urls'
@@ -139,3 +141,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# 配置自定义user
+AUTH_USER_MODEL = 'users.User'
+# 配置 Backend  对用户的凭据信息进行验证
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'users.backends.EmailBackend',
+)
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# 关联根目录和 static 文件夹
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/" #把admin的静态文件,由原来的admin目录,改为映射到static目录下的
