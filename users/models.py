@@ -7,4 +7,5 @@ class User(AbstractUser):
     usertype = models.CharField(max_length=20,default=0)
     imagesurl = models.CharField(max_length=20, blank=True)
     class Meta(AbstractUser.Meta):
+        ordering = ['id']
         pass

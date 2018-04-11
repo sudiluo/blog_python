@@ -30,7 +30,7 @@ class MallProduct(models.Model):
     class Meta:
         managed = False
         db_table = 'mall_product'
-
+        ordering = ['create_time']
     def to_dict(self):
         data = {}
         for f in self._meta.concrete_fields:

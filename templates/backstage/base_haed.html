@@ -3,16 +3,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Alpha - Bootstrap Admin Template</title>
+    <title>苏帝罗</title>
     <link href="/static/backstage/css/style.default.css" rel="stylesheet">
     <link href="/static/backstage/css/morris.css" rel="stylesheet">
     <link href="/static/backstage/css/select2.css" rel="stylesheet"/>
     <link href="/static/backstage/css/style.css" rel="stylesheet">
     <link href="/static/backstage/css/style.calendar.css" rel="stylesheet">
+    <link href="/static/backstage/css/tipso.min.css" rel="stylesheet" >
 
 </head>
 <header>
-    <div class="headerwrapper">
+    <div class="headerwrapper" style="top: 0">
         <div class="header-left">
             <a href="index.html" class="logo">
                 <img src="/static/backstage/picture/logo.png" alt=""/>
@@ -38,7 +39,8 @@
                         <h5>Notification</h5>
                         <ul class="media-list dropdown-list">
                             <li class="media">
-                                <img class="img-circle pull-left noti-thumb" src="/static/backstage/images/userhead/20180409105159.jpg"
+                                <img class="img-circle pull-left noti-thumb"
+                                     src="/static/backstage/images/user/awdad1w5d15.png"
                                      alt="">
                                 <div class="media-body">
                                     <strong>Nusja Nawancali</strong> likes a photo of you
@@ -162,7 +164,8 @@
                         <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Account Settings</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> Help</a></li>
                         <li class="divider"></li>
-                        <li><a href="{% url 'logout' %}?next={{ request.path }}"><i class="glyphicon glyphicon-log-out"></i>Sign Out</a></li>
+                        <li><a href="{% url 'logout' %}?next={{ request.path }}"><i
+                                class="glyphicon glyphicon-log-out"></i>Sign Out</a></li>
                     </ul>
                 </div><!-- btn-group -->
 
@@ -197,4 +200,5 @@
 <script src="/static/backstage/js/fullcalendar.min.js"></script>
 <script src="/static/backstage/js/custom.js"></script>
 <script src="/static/backstage/js/dashboard.js"></script>
+<script src="/static/backstage/js/tipso.min.js"></script>
 </body>
