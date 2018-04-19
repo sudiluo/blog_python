@@ -6,8 +6,8 @@
         <div class="mainpanel">
             <div class="row">
                 <div class="col-md-6" style="width: inherit;">
-                    <h5 class="lg-title mb5">用户列表</h5>
-                    <p class="mb20">查看所有用户信息，修改或删除。</p>
+                    <h5 class="lg-title mb5" style="font-size: 25px">用户列表</h5>
+                    <p class="mb20" style="margin-top: 10px;">查看所有用户信息，修改用户信息或删除禁用用户。</p>
                     <div class="alert alert-danger" style="display: none" id="msg">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
                         <strong>Well done!</strong> 至少输入一个查询条件
@@ -31,8 +31,7 @@
                                            class="form-control tooltips" name="nickname" id="nickname"/>
                                 </div>
                                 <input class="btn btn-primary btn-rounded" type="submit" value="查询"
-                                       data-target="#myModal"
-                                       style="margin-top: 2px;">
+                                       data-target="#myModal">
                             </div><!-- form-group -->
 
                         </form>
@@ -44,8 +43,11 @@
                                 <th>ID</th>
                                 <th>昵称</th>
                                 <th>用户名</th>
+                                <th>手机号</th>
+                                <th>角色</th>
+                                <th>电子邮箱</th>
                                 <th>加入时间</th>
-                                <th></th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             {% for u in user_list %}
@@ -54,12 +56,19 @@
                                     <td>1</td>
                                     <td>{{ u.nickname }}</td>
                                     <td>{{ u.username }}</td>
+                                    <td>{{ u.phone }}</td>
+                                    <td>{{ u.user_type }}</td>
+                                    <td>{{ u.email }}</td>
                                     <td>{{ u.date_joined }}</td>
-                                    <td class="table-action-hide">
-                                        <a href="#" data-toggle="tooltip" title="Edit" class="tooltips"><i
-                                                class="fa fa-pencil"></i></a>
-                                        <a href="#" data-toggle="tooltip" title="Delete" class="delete-row tooltips"><i
-                                                class="fa fa-trash-o"></i></a>
+                                    <td>
+                                        {# 按钮#}
+                                        <!-- Button trigger modal -->
+                                        <a class="glyphicon glyphicon-zoom-in" data-toggle="modal"
+                                           data-target="#myModal"></a>&nbsp;&nbsp;&nbsp;
+                                        <a class="glyphicon glyphicon-pencil" data-toggle="modal"
+                                           data-target="#myModal"></a>&nbsp;&nbsp;&nbsp;
+                                        <a class="glyphicon glyphicon-trash" data-toggle="modal"
+                                           data-target="#myModal"></a>&nbsp;&nbsp;&nbsp;
                                     </td>
                                 </tr>
                                 </tbody>
@@ -109,7 +118,7 @@
                 </div>
             {% endif %}
             {# 按钮#}
-            <div class="panel-body">
+            <div class="panel-body" style="display: none">
                 <!-- Button trigger modal -->
                 <button class="btn btn-primary mb9" data-toggle="modal" data-target="#myModal">
                     提交

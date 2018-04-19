@@ -1,4 +1,8 @@
+from django.conf.urls.static import static
+from django.template.defaulttags import url
+
 from blog.urls import app_name
+from ulife import settings
 from . import views
 from django.urls import path
 
@@ -14,4 +18,11 @@ urlpatterns = [
     path('signin/', views.signin, name='signin'),
     path('signup/', views.signup, name='signup'),
     path('productList/', views.ProductListView.as_view(), name='productList'),
-]
+    path('categoryList/', views.CategoryListView.as_view(), name='categoryList'),
+    path('productOrderList/', views.ProductOrderListView.as_view(), name='productOrderList'),
+    path('myprofile/', views.myprofile, name='myprofile'),
+    path('upload_avatar/', views.upload_avatar, name='upload_avatar'),
+    path('static/', views.upload_avatar, name='upload_avatar'),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# handler404 = views.page_not_found

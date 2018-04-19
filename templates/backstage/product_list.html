@@ -1,6 +1,12 @@
 ﻿{% include 'backstage/base_haed.html' %}
 <body>
 {% include 'backstage/left.html' %}
+<style>
+    table {
+        table-layout: fixed; /*使水平布局不受单元格的内容的影响*/
+        width: 70% !important;
+    }
+</style>
 <section>
     <div class="mainwrapper">
         <div class="mainpanel">
@@ -34,15 +40,15 @@
                         </form>
                     </div><!-- panel-body -->
                     <div class="table-responsive">
-                        <table class="table table-hidaction table-hover mb30">
+                        <table class="table table-hidaction table-hover mb30" id="product_list_table">
                             <thead>
                             <tr>
-                                <th>ID</th>
+                                <th width="30px">ID</th>
                                 <th>商品名称</th>
                                 <th>商品售价</th>
                                 <th>商品成本价</th>
-                                <th>简介</th>
-                                <th>创建时间</th>
+                                <th width="300px">简介</th>
+                                <th >创建时间</th>
                                 <th>商品分类</th>
                                 <th>图片</th>
                                 <th>操作</th>
@@ -55,13 +61,9 @@
                                     <td>{{ u.name }}</td>
                                     <td>{{ u.price }}</td>
                                     <td>{{ u.cost_price }}</td>
-                                    <td>{{ u.detail_html }}</td>
-                                    <td>{{ u.create_time }}</td>
-                                    {% for c in categorys %}
-                                        {% if u.product_category_id == c.id %}
-                                            <td>{{ c.prod_name }}</td>
-                                        {% endif %}
-                                    {% endfor %}
+                                    <td style="overflow: hidden;white-space: nowrap;">{{ u.detail_html }}</td>
+                                    <td style="overflow: hidden;white-space: nowrap;">{{ u.create_time }}</td>
+                                    <td>{{ u.product_category_id.prod_name }}</td>
                                     <td><img src="{{ u.image }}" class="img50px"></td>
                                     <td>
                                         {# 按钮#}

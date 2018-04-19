@@ -7,10 +7,10 @@
         </a>
         <div class="media-body">
             <h4 class="media-heading">{{ user.username }}</h4>
-            <span class="user-options"><a href="#"><i class="glyphicon glyphicon-user"></i></a>
+            <span class="user-options"><a href="{% url 'backstage:myprofile' %}"><i class="glyphicon glyphicon-user"></i></a>
                               <a href="#"><i class="glyphicon glyphicon-envelope"></i></a>
                               <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
-                              <a href="#"><i class="glyphicon glyphicon-log-out"></i></a>
+                              <a href="{% url 'logout' %}?next={{ request.path }}"><i class="glyphicon glyphicon-log-out"></i></a>
 							</span>
         </div>
     </div><!-- media -->
@@ -18,16 +18,22 @@
 
     <ul class="nav nav-pills nav-stacked">
         <li class="active">
-{#            {% if request.user.usertype == '0' %}#}
-                <a href="{% url 'backstage:index' %}"><i class="fa fa-home"></i> <span>首页</span></a></li>
-{#            {% endif %}#}
+            {#            {% if request.user.usertype == '0' %}#}
+            <a href="{% url 'backstage:index' %}"><i class="fa fa-home"></i> <span>首页</span></a></li>
+        {#            {% endif %}#}
 
         <li>
-{#            {% if request.user.usertype == '0' %}#}
-                <a href="{% url 'backstage:userList' %}"><i class="fa fa-bar-chart-o"></i> <span>用户列表</span></a>
-{#            {% endif %}#}
+            {#            {% if request.user.usertype == '0' %}#}
+            <a href="{% url 'backstage:userList' %}"><i class="fa fa-bar-chart-o"></i> <span>用户列表</span></a>
+            {#            {% endif %}#}
         </li>
-        <li><a href="{% url 'backstage:productList' %}"><i class="fa fa-list-ul"></i> <span>商品列表</span></a></li>
+        <li class="parent"><a href="#"><i class="fa fa-list-ul"></i> <span>商品</span></a>
+            <ul class="children">
+                <li><a href="{% url 'backstage:productList' %}"><i class="fa fa-briefcase"></i>&nbsp;&nbsp;&nbsp; <span>商品列表</span></a></li>
+                <li><a href="{% url 'backstage:categoryList' %}"><i class="fa fa-briefcase"></i>&nbsp;&nbsp;&nbsp; <span>分&nbsp;&nbsp;类</span></a></li>
+                <li><a href="{% url 'backstage:productOrderList' %}"><i class="fa fa-briefcase"></i>&nbsp;&nbsp;&nbsp; <span>商品订单列表</span></a></li>
+            </ul>
+        </li>
     </ul>
 </div><!-- leftpanel -->
 

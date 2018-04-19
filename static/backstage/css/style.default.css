@@ -44,7 +44,7 @@
 /********** 1. IMPORTS **********/
 /********************************/
 
-@import url('bootstrap.min.css');
+@import 'bootstrap.min.css';
 @import url('bootstrap-override.css');
 @import url('weather-icons.min.css');
 @import url('jquery-ui-1.10.3.css');

@@ -1,4 +1,5 @@
-﻿<head>
+﻿{% load static %}
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="">
@@ -26,8 +27,8 @@
         </div><!-- header-left -->
         <div class="header-right">
             <div class="pull-right">
-                <form class="form form-search" action="search-results.html">
-                    <input type="search" class="form-control" placeholder="Search"/>
+                <form class="form form-search" action="#">
+                    <input type="search" class="form-control" placeholder="搜索"/>
                 </form>
                 <div class="btn-group btn-group-list btn-group-notification">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -159,13 +160,12 @@
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <ul class="dropdown-menu pull-right" role="menu">
-                        <li><a href="#"><i class="glyphicon glyphicon-user"></i> My Profile</a></li>
-                        <li><a href="#"><i class="glyphicon glyphicon-star"></i> Activity Log</a></li>
-                        <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Account Settings</a></li>
-                        <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> Help</a></li>
+                        <li><a href="{% url 'backstage:myprofile' %}"><i class="glyphicon glyphicon-user"></i> 我的资料</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i>帮助</a></li>
                         <li class="divider"></li>
                         <li><a href="{% url 'logout' %}?next={{ request.path }}"><i
-                                class="glyphicon glyphicon-log-out"></i>Sign Out</a></li>
+                                class="glyphicon glyphicon-log-out"></i>退出登录</a></li>
                     </ul>
                 </div><!-- btn-group -->
 

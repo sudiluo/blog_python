@@ -1,0 +1,281 @@
+﻿{% include 'backstage/base_haed.html' %}
+<html lang="en">
+<body>
+{% include 'backstage/left.html' %}
+<style>
+    .a-upload {
+        padding: 4px 10px;
+        height: 20px;
+        line-height: 20px;
+        position: relative;
+        cursor: pointer;
+        color: #888;
+        background: #fafafa;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        overflow: hidden;
+        display: inline-block;
+        *display: inline;
+        *zoom: 1
+    }
+
+    .a-upload input {
+        position: absolute;
+        font-size: 100px;
+        right: 0;
+        top: 0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        cursor: pointer
+    }
+
+    .a-upload:hover {
+        color: #444;
+        background: #eee;
+        border-color: #ccc;
+        text-decoration: none
+    }
+
+    .file {
+        position: relative;
+        display: inline-block;
+        background: #D0EEFF;
+        border: 1px solid #99D3F5;
+        border-radius: 4px;
+        padding: 4px 12px;
+        overflow: hidden;
+        color: #1E88C7;
+        text-decoration: none;
+        text-indent: 0;
+        line-height: 20px;
+    }
+
+    .file input {
+        position: absolute;
+        font-size: 100px;
+        right: 0;
+        top: 0;
+        opacity: 0;
+    }
+
+    .file:hover {
+        background: #AADFFD;
+        border-color: #78C3F3;
+        color: #004974;
+        text-decoration: none;
+    }
+</style>
+
+<body>
+<section>
+    <div class="mainwrapper">
+        <div class="mainpanel">
+            <div class="contentpanel">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-btns">
+                                    <a href="#" class="panel-minimize tooltips" data-toggle="tooltip"
+                                       title="Minimize Panel"><i class="fa fa-minus"></i></a>
+                                    <a href="#" class="panel-close tooltips" data-toggle="tooltip"
+                                       title="Close Panel"><i class="fa fa-times"></i></a>
+                                </div><!-- panel-btns -->
+                                <h4 class="panel-title">个人资料</h4>
+                                <p>这里可以查看个人全部资料，并 <code>更新</code> 个人资料。 <code>手机号码</code>在密钥栏目修改。</p>
+                            </div><!-- panel-heading -->
+                            <div class="panel-body nopadding">
+
+                                <form class="form-horizontal form-bordered">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">用户级别</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" placeholder="VIP" class="form-control" value="VIP"
+                                                   disabled=""/>
+                                        </div>
+                                    </div><!-- form-group -->
+
+                                    <div class="col-sm-6">
+                                        <div class="input-group mb15">
+                                            <span class="input-group-addon"><i
+                                                    class="glyphicon glyphicon-user">&nbsp;用户名&nbsp;</i></span>
+                                            <input type="text" class="form-control" placeholder="输入用户名" name="username">
+                                        </div><!-- input-group -->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="input-group mb15">
+                                            <span class="input-group-addon"><i
+                                                    class="glyphicon glyphicon-user">&nbsp;昵称&nbsp;</i></span>
+                                            <input type="text" class="form-control" placeholder="输入用户名" name="username">
+                                        </div><!-- input-group -->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="input-group mb15">
+                                            <span class="input-group-addon"><i
+                                                    class="glyphicon glyphicon-user">&nbsp;手机号&nbsp;</i></span>
+                                            <input type="text" class="form-control" placeholder="输入用户名" name="username"
+                                                   disabled="">
+                                        </div><!-- input-group -->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="input-group mb15">
+                                            <span class="input-group-addon"><i
+                                                    class="glyphicon glyphicon-user">&nbsp;邮箱&nbsp;</i></span>
+                                            <input type="text" class="form-control" placeholder="输入用户名" name="username">
+                                        </div><!-- input-group -->
+                                    </div>
+                                    {# 按钮#}
+                                    <div class="pull-right">
+                                        <!-- Button trigger modal -->
+                                        <button class="btn btn-primary mb9" data-toggle="modal" data-target="#myModal"
+                                                type="button" style="margin-right: 20px;margin-bottom: 20px">
+                                            更新资料
+                                        </button>
+                                    </div>
+                                    <!-- Modal 弹窗美化-->
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+                                         aria-labelledby="myModalLabel"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-hidden="true">&times;
+                                                    </button>
+                                                    <h4 class="modal-title" id="myModalLabel">提示</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    确定要执行提交吗？
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                        关闭
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary">确定</button>
+                                                </div>
+                                            </div><!-- modal-content -->
+                                        </div><!-- modal-dialog -->
+                                    </div><!-- modal -->
+                                </form>
+                            </div><!-- panel-body -->
+                        </div><!-- panel -->
+                    </div><!-- col-md-6 -->
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-btns" style="display: none;">
+                                    <a href="#" class="panel-minimize tooltips" data-toggle="tooltip" title=""
+                                       data-original-title="Minimize Panel"><i class="fa fa-minus"></i></a>
+                                    <a href="#" class="panel-close tooltips" data-toggle="tooltip" title=""
+                                       data-original-title="Close Panel"><i class="fa fa-times"></i></a>
+                                </div><!-- panel-btns -->
+                                <h5 class="panel-title">设置头像</h5>
+                                <p>请按需求上传您的头像.</p>
+                            </div><!-- panel-heading -->
+                            <div class="panel-body">
+                                <p>按照300*300的标准，上传您在网站的头像，请遵守法律规定。</p>
+                                <br/>
+                                <form id="upload" enctype="multipart/form-data" action="{% url 'backstage:upload_avatar' %}" method="post">
+                                    {% csrf_token %}
+                                   {% comment %} <img class="img-circle" src="/{{ img }}">{% endcomment %}
+                                    <a href="javascript:;" class="file">选择文件
+                                        <input type="file" name="img" id="img">
+                                    </a>
+                                    {% comment %}<button type="submit" >上传图片</button>{% endcomment %}
+                                </form>
+                            </div><!-- panel-body -->
+                        </div><!-- panel -->
+                    </div>
+                </div><!-- row -->
+            </div><!-- contentpanel -->
+        </div>
+    </div><!-- mainwrapper -->
+</section>
+
+<script>
+    jQuery(document).ready(function () {
+
+        // Tags Input
+        jQuery('#tags').tagsInput({width: 'auto'});
+
+        // Textarea Autogrow
+        jQuery('#autoResizeTA').autogrow();
+
+        // Spinner
+        var spinner = jQuery('#spinner').spinner();
+        spinner.spinner('value', 0);
+
+        // Form Toggles
+        jQuery('.toggle').toggles({on: true});
+
+        // Time Picker
+        jQuery('#timepicker').timepicker({defaultTIme: false});
+        jQuery('#timepicker2').timepicker({showMeridian: false});
+        jQuery('#timepicker3').timepicker({minuteStep: 15});
+
+        // Date Picker
+        jQuery('#datepicker').datepicker();
+        jQuery('#datepicker-inline').datepicker();
+        jQuery('#datepicker-multiple').datepicker({
+            numberOfMonths: 3,
+            showButtonPanel: true
+        });
+
+        // Input Masks
+        jQuery("#date").mask("99/99/9999");
+        jQuery("#phone").mask("(999) 999-9999");
+        jQuery("#ssn").mask("999-99-9999");
+
+        // Select2
+        jQuery("#select-basic, #select-multi").select2();
+        jQuery('#select-search-hide').select2({
+            minimumResultsForSearch: -1
+        });
+
+        function format(item) {
+            return '<i class="fa ' + ((item.element[0].getAttribute('rel') === undefined) ? "" : item.element[0].getAttribute('rel')) + ' mr10"></i>' + item.text;
+        }
+
+        // This will empty first option in select to enable placeholder
+        jQuery('select option:first-child').text('');
+
+        jQuery("#select-templating").select2({
+            formatResult: format,
+            formatSelection: format,
+            escapeMarkup: function (m) {
+                return m;
+            }
+        });
+
+        // Color Picker
+        if (jQuery('#colorpicker').length > 0) {
+            jQuery('#colorSelector').ColorPicker({
+                onShow: function (colpkr) {
+                    jQuery(colpkr).fadeIn(500);
+                    return false;
+                },
+                onHide: function (colpkr) {
+                    jQuery(colpkr).fadeOut(500);
+                    return false;
+                },
+                onChange: function (hsb, hex, rgb) {
+                    jQuery('#colorSelector span').css('backgroundColor', '#' + hex);
+                    jQuery('#colorpicker').val('#' + hex);
+                }
+            });
+        }
+
+        // Color Picker Flat Mode
+        jQuery('#colorpickerholder').ColorPicker({
+            flat: true,
+            onChange: function (hsb, hex, rgb) {
+                jQuery('#colorpicker3').val('#' + hex);
+            }
+        });
+
+
+    });
+</script>
+
+</body>

@@ -1,0 +1,217 @@
+﻿{% include 'backstage/base_haed.html' %}
+<body>
+{% include 'backstage/left.html' %}
+<style>
+    table {
+        table-layout: fixed; /*使水平布局不受单元格的内容的影响*/
+        width: 90% !important;
+    }
+</style>
+<section>
+    <div class="mainwrapper">
+        <div class="mainpanel">
+            <div class="row">
+                <div class="col-md-6" style="width: inherit;">
+                    <h5 class="lg-title mb5">商品列表</h5>
+                    <p class="mb20">查看所有商品列表</p>
+                    <div class="table-responsive">
+                        <table class="table table-hidaction table-hover mb30" id="product_list_table">
+                            <thead>
+                            <tr>
+                                <th width="30px">ID</th>
+                                <th>订单号</th>
+                                <th>商品名称</th>
+                                <th>总价格</th>
+                                <th>创建时间</th>
+                                <th>完成时间</th>
+                                <th>支付方式</th>
+                                <th>支付状态</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            {% for l in data_list %}
+                                <tbody>
+                                <tr>
+                                    <td>{{ l.id }}</td>
+                                    <td>{{ l.order_id }}</td>
+                                    <td>{{ l.product_name }}</td>
+                                    <td>{{ l.total_price }}元</td>
+                                    <td>{{ l.create_time }}</td>
+                                    <td>{{ l.over_time }}</td>
+                                    <td>{{ l.pay_online }}</td>
+                                    <td>{{ l.pay_status }}</td>
+                                    <td>
+                                        {# 按钮#}
+                                        <!-- Button trigger modal -->
+                                        <a class="glyphicon glyphicon-zoom-in" data-toggle="modal"
+                                           data-target="#myModal"></a>&nbsp;&nbsp;&nbsp;
+                                        <a class="glyphicon glyphicon-pencil" data-toggle="modal"
+                                           data-target="#myModal"></a>&nbsp;&nbsp;&nbsp;
+                                        <a class="glyphicon glyphicon-trash" data-toggle="modal"
+                                           data-target="#myModal"></a>&nbsp;&nbsp;&nbsp;
+                                    </td>
+                                </tr>
+                                </tbody>
+                            {% endfor %}
+                        </table>
+                    </div><!-- table-responsive -->
+                </div><!-- col-md-6 -->
+            </div><!--row -->
+            {% comment %} <div class="panel-body" style="margin: inherit;">
+                <ul class="pagination pagination-metro nomargin mt10">
+                    <li class="disabled"><a href="#" style="margin-top: 2px;"><i class="fa fa-angle-left"></i></a></li>
+                    <li><a href="#">1</a></li>
+                    <li class="active"><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#" style="margin-top: 2px;"><i class="fa fa-angle-right"></i></a></li>
+                </ul>
+            </div>{% endcomment %}
+            {% if is_paginated %}
+                <div class="panel-body">
+                    <ul class="pagination pagination-metro nomargin mt10">
+                        {% if first %}
+                            <li><a href="?page=1">1</a></li>
+                        {% endif %}
+                        {% if left %}
+                            {% if left_has_more %}
+                                <li><span>...</span></li>
+                            {% endif %}
+                            {% for i in left %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endfor %}
+                        {% endif %}
+                        <li class="current"><a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+                        {% if right %}
+                            {% for i in right %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endfor %}
+                            {% if right_has_more %}
+                                <li><span>...</span></li>
+                            {% endif %}
+                        {% endif %}
+                        {% if last %}
+                            <li><a href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            {% endif %}
+            <!-- Modal 弹窗美化-->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">提示</h4>
+                        </div>
+                        <div class="modal-body">
+                            确定要执行提交吗？
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary">确定</button>
+                        </div>
+                    </div><!-- modal-content -->
+                </div><!-- modal-dialog -->
+            </div><!-- modal -->
+        </div><!-- mainpanel -->
+    </div><!-- mainwrapper -->
+</section>
+<script>
+    function formCommit() {
+        if (document.myForm.username.value == "" && document.myForm.nickname.value == "") {
+            alert("至少输入一个查询条件");
+            return false;
+            {#document.myForm.username.focus();#}
+        } else {
+            return true;
+        }
+    }
+
+    jQuery(document).ready(function () {
+
+        // Tags Input
+        jQuery('#tags').tagsInput({width: 'auto'});
+
+        // Textarea Autogrow
+        jQuery('#autoResizeTA').autogrow();
+
+        // Spinner
+        var spinner = jQuery('#spinner').spinner();
+        spinner.spinner('value', 0);
+
+        // Form Toggles
+        jQuery('.toggle').toggles({on: true});
+
+        // Time Picker
+        jQuery('#timepicker').timepicker({defaultTIme: false});
+        jQuery('#timepicker2').timepicker({showMeridian: false});
+        jQuery('#timepicker3').timepicker({minuteStep: 15});
+
+        // Date Picker
+        jQuery('#datepicker').datepicker();
+        jQuery('#datepicker-inline').datepicker();
+        jQuery('#datepicker-multiple').datepicker({
+            numberOfMonths: 3,
+            showButtonPanel: true
+        });
+
+        // Input Masks
+        jQuery("#date").mask("99/99/9999");
+        jQuery("#phone").mask("(999) 999-9999");
+        jQuery("#ssn").mask("999-99-9999");
+
+        // Select2
+        jQuery("#select-basic, #select-multi").select2();
+        jQuery('#select-search-hide').select2({
+            minimumResultsForSearch: -1
+        });
+
+        function format(item) {
+            return '<i class="fa ' + ((item.element[0].getAttribute('rel') === undefined) ? "" : item.element[0].getAttribute('rel')) + ' mr10"></i>' + item.text;
+        }
+
+        // This will empty first option in select to enable placeholder
+        jQuery('select option:first-child').text('');
+
+        jQuery("#select-templating").select2({
+            formatResult: format,
+            formatSelection: format,
+            escapeMarkup: function (m) {
+                return m;
+            }
+        });
+
+        // Color Picker
+        if (jQuery('#colorpicker').length > 0) {
+            jQuery('#colorSelector').ColorPicker({
+                onShow: function (colpkr) {
+                    jQuery(colpkr).fadeIn(500);
+                    return false;
+                },
+                onHide: function (colpkr) {
+                    jQuery(colpkr).fadeOut(500);
+                    return false;
+                },
+                onChange: function (hsb, hex, rgb) {
+                    jQuery('#colorSelector span').css('backgroundColor', '#' + hex);
+                    jQuery('#colorpicker').val('#' + hex);
+                }
+            });
+        }
+
+        // Color Picker Flat Mode
+        jQuery('#colorpickerholder').ColorPicker({
+            flat: true,
+            onChange: function (hsb, hex, rgb) {
+                jQuery('#colorpicker3').val('#' + hex);
+            }
+        });
+
+
+    });
+
+</script>
+</body>

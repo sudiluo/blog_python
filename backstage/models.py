@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class MallProduct(models.Model):
     id = models.BigAutoField(primary_key=True)
     create_time = models.DateTimeField(blank=True, null=True)
@@ -7,7 +8,6 @@ class MallProduct(models.Model):
     app_html = models.CharField(max_length=255, blank=True, null=True)
     available = models.IntegerField(blank=True, null=True)
     cost_price = models.IntegerField(blank=True, null=True)
-    count_num = models.BigIntegerField(blank=True, null=True)
     deleted = models.IntegerField(blank=True, null=True)
     detail_html = models.CharField(max_length=255, blank=True, null=True)
     down_time = models.DateTimeField(blank=True, null=True)
@@ -19,7 +19,7 @@ class MallProduct(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
     ori_price = models.IntegerField(blank=True, null=True)
     price = models.IntegerField(blank=True, null=True)
-    product_category_id = models.BigIntegerField(blank=True, null=True)
+    product_category_id = models.ForeignKey('MallProductCategory', on_delete=models.CASCADE, )
     product_weight = models.IntegerField(blank=True, null=True)
     short_desc = models.CharField(max_length=255, blank=True, null=True)
     type = models.IntegerField(blank=True, null=True)
@@ -28,26 +28,7 @@ class MallProduct(models.Model):
     verify_time = models.DateTimeField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'mall_product'
-        ordering = ['create_time']
-    def to_dict(self):
-        data = {}
-        for f in self._meta.concrete_fields:
-            data[f.name] = f.value_from_object(self)
-        return data
-
-    def toJSON(self):
-        fields = []
-        for field in self._meta.fields:
-            fields.append(field.name)
-
-        d = {}
-        for attr in fields:
-            d[attr] = getattr(self, attr)
-
-        import json
-        return json.dumps(d)
 
 
 class MallProductCategory(models.Model):
@@ -59,5 +40,47 @@ class MallProductCategory(models.Model):
     prod_name = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'mall_product_category'
+
+
+class MallProductOrder(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    create_time = models.DateTimeField(blank=True, null=True)
+    update_time = models.DateTimeField()
+    cancel_time = models.DateTimeField(blank=True, null=True)
+    del_field = models.IntegerField(db_column='del', blank=True,
+                                    null=True)  # Field renamed because it was a Python reserved word.
+    from_way = models.IntegerField(blank=True, null=True)
+    group_order_id = models.BigIntegerField(blank=True, null=True)
+    group_status = models.IntegerField(blank=True, null=True)
+    order_comm = models.CharField(max_length=255, blank=True, null=True)
+    order_id = models.CharField(unique=True, max_length=30, blank=True, null=True)
+    order_type = models.IntegerField(blank=True, null=True)
+    ori_price = models.BigIntegerField(blank=True, null=True)
+    over_time = models.DateTimeField(blank=True, null=True)
+    pay_online = models.IntegerField(blank=True, null=True)
+    pay_order_no = models.CharField(max_length=255, blank=True, null=True)
+    pay_status = models.IntegerField(blank=True, null=True)
+    pay_time = models.DateTimeField(blank=True, null=True)
+    product_id = models.ForeignKey('MallProduct', on_delete=models.CASCADE,blank=False, null=False )
+    product_image = models.CharField(max_length=255, blank=True, null=True)
+    product_name = models.CharField(max_length=255, blank=True, null=True)
+    product_num = models.IntegerField(blank=True, null=True)
+    receive_addr = models.CharField(max_length=255, blank=True, null=True)
+    receive_name = models.CharField(max_length=255, blank=True, null=True)
+    receive_phone = models.CharField(max_length=255, blank=True, null=True)
+    refund_no = models.CharField(max_length=255, blank=True, null=True)
+    refund_reason = models.CharField(max_length=255, blank=True, null=True)
+    refund_status = models.IntegerField(blank=True, null=True)
+    refund_time = models.DateTimeField(blank=True, null=True)
+    send_code = models.CharField(max_length=255, blank=True, null=True)
+    send_fee = models.BigIntegerField(blank=True, null=True)
+    send_time = models.CharField(max_length=255, blank=True, null=True)
+    send_type = models.IntegerField(blank=True, null=True)
+    store_id = models.IntegerField(blank=True, null=True)
+    take_time = models.DateTimeField(blank=True, null=True)
+    total_price = models.BigIntegerField(blank=True, null=True)
+    user_id = models.BigIntegerField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'mall_product_order'
